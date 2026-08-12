@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Design tokens — the entire visual identity lives here.
+   Change these five colors and the whole site changes mood.
+   --------------------------------------------------------------- */
+@theme {
+  /* Surfaces */
+  --color-paper: #fdfcfa; /* page background — warm off-white   */
+  --color-surface: #f4f1ec; /* cards, alternating sections        */
+  --color-surface-deep: #ebe6dd; /* pressed / hover on surface         */
+
+  /* Ink */
+  --color-ink: #1c1917; /* headings, primary copy             */
+  --color-ink-soft: #44403c; /* body copy                          */
+  --color-muted: #78716c; /* captions, meta, labels             */
+
+  /* Line */
+  --color-line: #e2ddd4; /* hairline rules, card borders       */
+
+  /* Accent — clay */
+  --color-accent: #b4553f;
+  --color-accent-deep: #8f4231; /* hover state                        */
+  --color-accent-wash: #f7ece8; /* tinted backgrounds, tags           */
+
+  /* Type */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
+body {
+  background: var(--color-paper);
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-paper);
+}
+
+/* Respect users who don't want motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------- */
+
+/* Optical balance for large display headings. */
+@utility display-tight {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  color: var(--color-ink);
+}
+
+/* The small uppercase label used above section headings. */
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Scroll-reveal: elements start shifted, then settle once visible.
+   Paired with the IntersectionObserver in <Reveal />. */
+@utility reveal-init {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    transform 0.7s var(--ease-out-soft);
+}
